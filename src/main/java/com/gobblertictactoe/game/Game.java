@@ -59,7 +59,7 @@ public class Game {
         while(true){
             view.printTop(board);
             makeMove();
-            if (board.checkWin(player.id())) { view.printTop(board); System.out.println(player.id() + " wins!"); break; }
+            if (checkWin(player.id())) { view.printTop(board); System.out.println(player.id() + " wins!"); break; }
             if (!hasAnyLegalMove(pO) && !hasAnyLegalMove(pB)) { view.printTop(board); System.out.println("Draw - no legal moves"); break; }
             switchPlayer();
         }
@@ -225,6 +225,48 @@ public class Game {
             }
         }
         return moves;
+    }
+
+    /**
+     * Check win for playerId by looking at top pieces (correct row/col indexing).
+     */
+    public boolean checkWin(char playerId){
+
+        int rows=board.size();
+        int cols=board.size();
+
+        // rows
+        for (int r = 0; r < rows; r++) {
+            boolean ok = true;
+            for (int c = 0; c < cols; c++) {
+                Optional<Piece> t = board.topAt(r, c);
+                if (!t.isPresent() || t.get().owner() != playerId) { ok = false; break; }
+            }
+            if (ok) return true;
+        }
+        // cols
+        for (int c = 0; c < cols; c++) {
+            boolean ok = true;
+            for (int r = 0; r < rows; r++) {
+                Optional<Piece> t = board.topAt(r, c);
+                if (!t.isPresent() || t.get().owner() != playerId) { ok = false; break; }
+            }
+            if (ok) return true;
+        }
+        // main diag
+        boolean ok = true;
+        for (int i = 0; i < Math.min(rows, cols); i++) {
+            Optional<Piece> t = board.topAt(i, i);
+            if (!t.isPresent() || t.get().owner() != playerId) { ok = false; break; }
+        }
+        if (ok) return true;
+        // anti-diag
+        ok = true;
+        for (int i = 0; i < Math.min(rows, cols); i++) {
+            Optional<Piece> t = board.topAt(i, cols - 1 - i);
+            if (!t.isPresent() || t.get().owner() != playerId) { ok = false; break; }
+        }
+        return ok;
     }
 
     public static void main(String[] args) {

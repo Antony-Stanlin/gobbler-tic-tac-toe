@@ -1,9 +1,8 @@
 package com.gobblertictactoe.view;
 
-import java.util.Deque;
-
 import com.gobblertictactoe.model.Board;
 import com.gobblertictactoe.model.Piece;
+import com.gobblertictactoe.util.Stack;
 
 public class BoardView {
 
@@ -60,7 +59,7 @@ public class BoardView {
         for (int i = 0; i < size; i++) {
             System.out.printf("%3d ", i + 1);
             for (int j = 0; j < size; j++) {
-                Deque<Piece> stack = board.stackAt(i, j);
+                Stack<Piece> stack = board.stackAt(i, j);
                 if (stack == null || stack.isEmpty()) {
                     System.out.printf("%8s", "__");
                 } else {
