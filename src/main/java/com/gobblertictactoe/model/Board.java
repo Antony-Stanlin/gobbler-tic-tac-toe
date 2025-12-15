@@ -42,14 +42,14 @@ public class Board {
         return board[row][col].isEmpty() ? Optional.empty() : Optional.of(board[row][col].peek());
     }
 
-    public boolean canPlace(Piece p,int row,int col){
+    public boolean canPlace(Piece piece,int row,int col){
         ensureInBounds(row,col);
-        return board[row][col].isEmpty() || p.size() > board[row][col].peek().size();
+        return board[row][col].isEmpty() || piece.size() > board[row][col].peek().size();
     }
 
-    public void place(Piece p,int row,int col){
+    public void place(Piece piece,int row,int col){
         ensureInBounds(row,col);
-        board[row][col].push(p);
+        board[row][col].push(piece);
     }
 
     public Piece popTop(int row,int col){

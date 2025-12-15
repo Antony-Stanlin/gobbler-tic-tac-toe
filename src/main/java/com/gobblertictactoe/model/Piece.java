@@ -5,12 +5,12 @@ public class Piece implements Comparable<Piece> {
     private final char owner;
     private final int size;
     private static final String RESET = "\u001B[0m";
-    private final String colorCode;
+    private final String color;
 
     public Piece(char owner,int size,String colorCode){
         this.owner = Character.toUpperCase(owner);
         this.size = size;
-        this.colorCode = colorCode;
+        this.color = colorCode;
     }
 
     public char owner() { return owner; }
@@ -18,7 +18,7 @@ public class Piece implements Comparable<Piece> {
     public int size() { return size; }
 
     @Override
-    public String toString(){ return colorCode + owner + size + RESET; }
+    public String toString(){ return color + owner + size + RESET; }
 
     @Override
     public int compareTo(Piece o){

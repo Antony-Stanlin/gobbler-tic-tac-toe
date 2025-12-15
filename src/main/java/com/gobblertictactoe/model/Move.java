@@ -3,19 +3,19 @@ package com.gobblertictactoe.model;
 public class Move {
 
     public final Piece piece;
-    public final int fromR,fromC;
-    public final int toR,toC;
+    public final int fromRow,fromCol;
+    public final int toRow,toCol;
 
-    public Move(Piece piece,int fromR,int fromC,int toR,int toC){
+    public Move(Piece piece,int fromRow,int fromCol,int toRow,int toCol){
         this.piece = piece;
-        this.fromR = fromR;
-        this.fromC = fromC;
-        this.toR = toR;
-        this.toC = toC;
+        this.fromRow = fromRow;
+        this.fromCol = fromCol;
+        this.toRow = toRow;
+        this.toCol = toCol;
     }
 
     @Override
     public String toString(){
-        return piece.toString() + " -> " + (char)('A' + toC) + (toR + 1) + (fromR>=0 ? " (moved)" : " (from pool)");
+        return piece.toString() + " -> " + (char)('A' + toCol) + (toRow + 1) + (fromRow>=0 ? " (moved)" : " (from pool)");
     }
 }

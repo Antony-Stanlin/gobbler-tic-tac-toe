@@ -8,17 +8,25 @@ import java.util.Set;
 public class Player {
 
     private final char id;
-    private final String colorCode;
+    private final String color;
+    private final String name;
+    private static final String RESET = "\u001B[0m";
     private final Set<Piece> pool = new LinkedHashSet<>(); // stable iteration order
 
-    public Player(char id, String colorCode){
+    public Player(char id, String color,String name){
         this.id = Character.toUpperCase(id);
-        this.colorCode = colorCode;
+        this.color = color;
+        this.name=name;
+    }
+
+    @Override
+    public String toString(){
+        return color + name + RESET;
     }
 
     public char id(){ return id; }
 
-    public String colorCode(){ return colorCode; }
+    public String colorCode(){ return color; }
 
     /**
      * Adds a piece to pool. Returns false if a piece with same owner+size already exists.
@@ -35,7 +43,10 @@ public class Player {
      * Find a piece in pool by size (returns Optional of the real Piece object).
      */
     public Optional<Piece> findInPoolBySize(int size){
-        for (Piece pe : pool) if (pe.size() == size) return Optional.of(pe);
+        for (Piece piece : pool) 
+            if (piece.size() == size) 
+                return Optional.of(piece);
+
         return Optional.empty();
     }
 
@@ -45,4 +56,6 @@ public class Player {
     public Set<Piece> poolView() { return Collections.unmodifiableSet(pool); }
 
     public boolean isPoolEmpty(){ return pool.isEmpty(); }
+
+
 }
